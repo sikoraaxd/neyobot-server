@@ -1,0 +1,13 @@
+name: neyo-server
+env:
+  RAILWAY_TOKEN: e36998d7-05a7-43bc-8922-aafffd90d753
+  PORT: 5000
+services:
+  web:
+    build:
+      dockerfile: Dockerfile
+    env:
+      PYTHONUNBUFFERED: "true"
+    command: python -m server
+    internal_port: 5000
+    port: 80
