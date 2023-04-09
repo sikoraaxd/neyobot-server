@@ -11,7 +11,6 @@ password = os.environ('PASSWORD')
 clients = set()
 
 async def server(websocket, path):
-    print('in server')
     global join_data
     global music_data
     global clients
@@ -49,14 +48,21 @@ async def server(websocket, path):
                 
             except:
                 pass
+            
         elif path == '/music':
-            print('in music')
-            if message['event'] == 'add':
-                music_data.append([message['track'], message['nickname'], message['image'], message['url'], message['listened']])
-                await websockets.broadcast(clients, json.dumps(music_data))
-            if message['event'] == 'set-listened':
-                music_data[message['id']][-1] = 'listened'
-                await websockets.broadcast(clients, json.dumps(music_data))
+             try:
+                if message['event'] == 'add':
+                    music_data.append([message['track'], message['nickname'], message['image'], message['url'], message['listened']])
+                    await websockets.broadcast(clients, json.dumps(music_data))
+                elif message['event'] == 'set-listened':
+                    music_data[message['id']][-1] = 'listened'
+                    await websockets.broadcast(clients, json.dumps(music_data))
+                elif message['event'] == 'clear':
+                    music_data = []
+                    await websockets.broadcast(clients, json.dumps(music_data))
+            except:
+                pass
+            
         elif path == '/auth':
             if message['event'] == 'login':
                 if message['password'] == password:
@@ -73,7 +79,6 @@ def clear_data():
 schedule.every().day.at("00:00").do(clear_data)
 
 async def main():
-    print('main')
     async with websockets.serve(server, "", port=int(os.environ["PORT"])):
         while True:
             schedule.run_pending()
