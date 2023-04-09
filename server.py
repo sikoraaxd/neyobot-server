@@ -7,7 +7,7 @@ import os
 
 join_data = []
 music_data = []
-password = '174AdE~1_842x'
+password = os.environ('PASSWORD')
 clients = set()
 
 async def server(websocket, path):
