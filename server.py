@@ -10,6 +10,7 @@ password = '174AdE~1_842x'
 clients = set()
 
 async def server(websocket, path):
+    print('in server')
     global join_data
     global music_data
     global clients
@@ -48,6 +49,7 @@ async def server(websocket, path):
             except:
                 pass
         elif path == '/music':
+            print('in music')
             if message['event'] == 'add':
                 music_data.append([message['track'], message['nickname'], message['image'], message['url'], message['listened']])
                 await websockets.broadcast(clients, json.dumps(music_data))
@@ -70,13 +72,11 @@ def clear_data():
 schedule.every().day.at("00:00").do(clear_data)
 
 async def main():
+    print('main')
     async with websockets.serve(server, "0.0.0.0", 8735):
         while True:
             schedule.run_pending()
             await asyncio.sleep(1)
 
 
-print('Hello')
-print('Hello')
-print('Hello')
 asyncio.run(main())
