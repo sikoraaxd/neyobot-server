@@ -70,7 +70,7 @@ def clear_data():
 schedule.every().day.at("00:00").do(clear_data)
 
 async def main():
-    async with websockets.serve(server, "127.0.0.1", 8735, max_size=None):
+    async with websockets.serve(server, "0.0.0.0", 8735, max_size=None):
         while True:
             schedule.run_pending()
             await asyncio.sleep(1)
