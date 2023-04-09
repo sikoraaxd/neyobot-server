@@ -3,6 +3,7 @@ import websockets
 import json
 import schedule
 import time
+import os
 
 join_data = []
 music_data = []
@@ -73,10 +74,10 @@ schedule.every().day.at("00:00").do(clear_data)
 
 async def main():
     print('main')
-    async with websockets.serve(server, "", 8735):
+    async with websockets.serve(server, "", port=int(os.environ["PORT"])):
         while True:
             schedule.run_pending()
             await asyncio.sleep(1)
 
-
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
