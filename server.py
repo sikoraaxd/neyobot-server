@@ -73,7 +73,7 @@ schedule.every().day.at("00:00").do(clear_data)
 
 async def main():
     print('main')
-    async with websockets.serve(server, "0.0.0.0", 8735):
+    async with websockets.serve(server, "", 8735):
         while True:
             schedule.run_pending()
             await asyncio.sleep(1)
