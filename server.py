@@ -50,7 +50,7 @@ async def server(websocket, path):
                 pass
             
         elif path == '/music':
-             try:
+            try:
                 if message['event'] == 'add':
                     music_data.append([message['track'], message['nickname'], message['image'], message['url'], message['listened']])
                     await websockets.broadcast(clients, json.dumps(music_data))
