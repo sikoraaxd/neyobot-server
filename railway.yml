@@ -1,5 +1,5 @@
 version: 1.0
-name: neyo-server
+name: neyobot-server
 
 # Указываем сервис и команду для запуска
 services:
