@@ -1,0 +1,5 @@
+services:
+  app:
+    command: python server.py
+    env:
+      PORT: 8000
