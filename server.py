@@ -70,7 +70,7 @@ def clear_data():
 schedule.every().day.at("00:00").do(clear_data)
 
 async def main():
-    async with websockets.serve(server, "https://neyo-server.com", max_size=None):
+    async with websockets.serve(server, "https://neyobot-server-production.up.railway.app/", max_size=None):
         while True:
             schedule.run_pending()
             await asyncio.sleep(1)
